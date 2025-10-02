@@ -1,5 +1,5 @@
 import streamlit as st
-from langchain.llms import OpenAI
+from langchain_openai import OpenAI
 from langchain.prompts import PromptTemplate
 import os
 from dotenv import load_dotenv
@@ -26,10 +26,10 @@ def get_llm_response(input_text, expert_type):
     )
 
     # LLMの初期化
-    llm = OpenAI(api_key=OPENAI_API_KEY)
+    llm = OpenAI(openai_api_key=OPENAI_API_KEY)
 
     # プロンプトをLLMに渡して回答を取得
-    response = llm(prompt.format(system_message=system_message, user_input=input_text))
+    response = llm.invoke(prompt.format(system_message=system_message, user_input=input_text))
     return response
 
 # Streamlitアプリの構築
@@ -57,4 +57,3 @@ if st.button("送信"):
         st.write(response)
     else:
         st.error("質問を入力してください！")
-
